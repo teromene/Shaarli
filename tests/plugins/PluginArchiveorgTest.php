@@ -27,25 +27,25 @@ class PluginArchiveorgTest extends PHPUnit_Framework_TestCase
     {
         $str1 = 'http://randomstr.com/test';
         $str2 = 'http://shaarli.test/?aaaaaa';
-		$str2_real_url = '?aaaaaa';
+        $str2_real_url = '?aaaaaa';
 
         $data = array(
             'title' => $str1,
             'links' => array(
                 array(
                     'url' => $str1,
-					'private' => 0,
-					'real_url' => $str1
+                    'private' => 0,
+                    'real_url' => $str1
+                ),
+                array(
+                    'url' => $str2,
+                    'private' => 0,
+                    'real_url' => $str2_real_url
                 ),
 				array(
                     'url' => $str2,
-					'private' => 0,
-					'real_url' => $str2_real_url
-                ),
-				array(
-                    'url' => $str2,
-					'private' => 1,
-					'real_url' => $str2_real_url
+                    'private' => 1,
+                    'real_url' => $str2_real_url
                 ),
             )
         );
@@ -62,7 +62,7 @@ class PluginArchiveorgTest extends PHPUnit_Framework_TestCase
         $this->assertNotFalse(strpos($link['link_plugin'][0], $str1));
 
 		//Second link : internal public link, plugin datas should be here
-		$link = $data['links'][1];
+        $link = $data['links'][1];
         $this->assertEquals(1, count($link['link_plugin']));
         $this->assertNotFalse(strpos($link['link_plugin'][0], $str2));
 
