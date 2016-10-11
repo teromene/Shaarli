@@ -17,8 +17,11 @@ function hook_archiveorg_render_linklist($data)
     $archive_html = file_get_contents(PluginManager::$PLUGINS_PATH . '/archiveorg/archiveorg.html');
 
     foreach ($data['links'] as &$value) {
-        $archive = sprintf($archive_html, $value['url']);
-        $value['link_plugin'][] = $archive;
+
+		if(!($value['private'] && preg_match('/^\?[a-zA-Z0-9-_@]{6}($|&|#)/', $value['real_url']))) {
+		    $archive = sprintf($archive_html, $value['url']);
+		    $value['link_plugin'][] = $archive;
+		}
     }
 
     return $data;
